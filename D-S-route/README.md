@@ -1,5 +1,5 @@
 # my-next-app
-next.js搭建的一个项目
+- 初步构建next.js项目，开始涉及动静态的路由定义，且渲染模式为 CSR。
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
