@@ -1,35 +1,16 @@
-import { useEffect, useState } from "react"
 import '@/app/globals.css'
-export default function About() {
-
-  const [data, setData] = useState<any[]>()
-  const [dateTime, setDateTime] = useState<any>()
-  const fetchData = ()=>{
-    fetch('https://dummyjson.com/posts')
-    .then((res)=>{
-      return res.json()
-    })
-    .then((data):void=>{
-      console.log(data)
-      setData(data.posts)
-      setDateTime((new Date()).toLocaleString())
-    })
-  }
-
-  useEffect(()=>{
-    fetchData()
-  },[])
-
+import Link from 'next/link';
+export default function Posts(props: any) {
   return (
     <main>
-      <h1>全部的 post --- 追加 id值 可查看对应 post</h1>
-      <h3>{dateTime}</h3>
+      <h1>全部的 post --- 点击标题 可查看对应 post</h1>
+      <h2>{props.dateTime}</h2>
       <ul>
         {
-          data?.map(item=>{
+          props.data?.map((item: any, index: number) => {
             return (
-              <li>
-                <h4>{item.title}</h4>
+              <li key={index}>
+                <h3><Link href={`posts/${index+1}`} >{item.title}</Link></h3>
               </li>
             )
           })
@@ -37,4 +18,14 @@ export default function About() {
       </ul>
     </main>
   );
+}
+
+//next.js内置函数 在构建时获取数据，装载到props里，作为组件属性 传给页面级的组件(pages下的页面) 注入页面后生成完整的静态页面 访问时无需任何数据请求 
+export async function getStaticProps() {
+  return ({
+    props: {
+      dateTime: (new Date()).toLocaleString(),
+      data: (await (await fetch('https://dummyjson.com/posts')).json()).posts
+    }
+  })
 }
