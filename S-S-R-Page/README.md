@@ -1,5 +1,20 @@
 # my-next-app
 
+SSR 服务端渲染 
+学了P-G-S-Page项目之后，发现一个问题，不管是SSG静态站点生成，还是ISG增量静态生成，都是不能即时生成用户的预想页面，要么是构建时生成(SSG)或者是运行时定期生成(ISG)。
+所以要是有一种既可以随时接收用户请求(ISG无法做到)，又可以在服务端生成对应请求的html(又能保留服务端生成的技术)，响应给用户，这就要SSR来完成了。(由于SSR的即时性，它的SEO会比SSG或者ISG更有优势)
+
+像 SSG 那样，有一个内置函数负责生成数据，然后返回 props 注入组件协助生成HTML，SSG是 getStaticProps ，而 SSR 服务端渲染的getServerSideProps 如下：
+export default function getServerSideProps(context:any){
+    return {
+        props:{ ... }
+    }
+}
+其中 context 相比于 SSG 的 getStaticProps 中的 context 参数来说，getServerSideProps 的context 是一个更多信息的上下文(比如 res req headers)。
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
